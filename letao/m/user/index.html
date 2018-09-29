@@ -25,7 +25,7 @@
                     <a class="mui-navigate-right" href="#account">
                         <img class="mui-media-object mui-pull-left head-img" id="head-img" src="../images/user.jpg">
                         <div class="mui-media-body">
-                            Hello MUI
+                            <span class="uname"></span>
                             <p class="mui-ellipsis">账号:hellomui</p>
                         </div>
                     </a>
@@ -43,7 +43,7 @@
                 </li>
             </ul>
             <div class="p20">
-                <a href="login.html" class="mui-btn btn_outLogin">退出登录</a>
+                <button class="mui-btn btn_outLogin">退出登录</button>
             </div>
         </div>
         <footer class="cz_tabs">
@@ -62,11 +62,23 @@
             type: 'get',
             success: function (info) {
                 console.log(info);
-
+                $('.uname').text(info.username);
                 if(info.error) {
                     location.href = './login.html';
+                    
                 }
             }
+        });
+
+        $('.btn_outLogin').on('click',function (){
+            $.ajax({
+                url: '/api/user/logout',
+                success: function (info){
+                    if(info.success) {
+                        location.href = '../index.html'
+                    }
+                }
+            })
         });
     </script>
 </body>
